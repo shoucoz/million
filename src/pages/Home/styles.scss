@@ -1,0 +1,16 @@
+@import "/src/shared/styles/layout.scss";
+@import "/src/shared/styles/colors.scss";
+
+.page-home {
+    @include common-layout;
+    &::after {
+        content: '';
+        width: 0;
+        height: 0;
+        position: absolute;
+        left: 0;
+        bottom: 0;
+        border-bottom: 100vh solid  $orange-5;
+        border-left: 100vw solid transparent;
+    }
+}

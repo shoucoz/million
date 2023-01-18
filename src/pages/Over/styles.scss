@@ -1,0 +1,5 @@
+@import "/src/shared/styles/layout.scss";
+
+.page-over {
+    @include common-layout;
+}

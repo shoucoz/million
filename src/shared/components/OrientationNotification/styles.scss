@@ -1,0 +1,15 @@
+@import '/src/shared/styles/layout.scss';
+@import '/src/shared/styles/colors.scss';
+
+.orientation-notification {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    left: 0;
+    top: 0;
+    padding: 20px;
+    @include flex-center-center;
+    background-color: $white-100;
+    z-index: 999;
+  }
+  

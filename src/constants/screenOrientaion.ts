@@ -1,0 +1,1 @@
+export const LANDSCAPE:string = 'landscape-primary'

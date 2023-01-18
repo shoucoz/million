@@ -1,0 +1,147 @@
+@import "/src/shared/styles/colors.scss";
+@import "/src/shared/styles//typography.scss";
+@import "/src/shared//styles/layout.scss";
+
+@function encodecolor($string) {
+    @if type-of($string) == 'color' {
+        $hex: str-slice(ie-hex-str($string), 4);
+        $string: unquote("#{$hex}");
+    }
+
+    $string: '%23' + $string;
+    @return $string;
+}
+
+@mixin option-bg($color, $border-color) {
+    background-image: url('data:image/svg+xml;utf8,<svg width="373" height="72" viewBox="0 0 373 72" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M22.7172 5.28344C24.8781 2.28016 28.3521 0.5 32.052 0.5H340.948C344.648 0.5 348.122 2.28016 350.283 5.28344L372.384 36L350.283 66.7166C348.122 69.7198 344.648 71.5 340.948 71.5H32.052C28.3521 71.5 24.8781 69.7198 22.7172 66.7166L0.615976 36L22.7172 5.28344Z"  fill="#{encodecolor($color)}" stroke="#{encodecolor($border-color)}"/></svg>');
+    background-repeat: no-repeat;
+    background-size: 99%;
+    background-position: center center;
+}
+
+@keyframes optionWrong {
+    0%   { @include option-bg($orange-5, $orange-100); }
+    10%  { @include option-bg($orange-5, $orange-5); }
+    20%  { @include option-bg($orange-5, $orange-100); }
+    30%  { @include option-bg($orange-5, $orange-5); }
+    40%  { @include option-bg($orange-5, $orange-100); }
+    50%  { @include option-bg($orange-5, $orange-5); }
+    60%  { @include option-bg($red-5, $red-100); }
+}
+
+@keyframes optionWrongAfter {
+    0%   { background-color: $orange-100; }
+    10%  { background-color: $orange-5; }
+    20%  { background-color: $orange-100; }
+    30%  { background-color: $orange-5; }
+    40%  { background-color: $orange-100; }
+    50%  { background-color: $orange-5; }
+    60%  { background-color: $red-100; }
+}
+  
+@keyframes optionSuccess {
+    0%   { @include option-bg($orange-5, $orange-100); }
+    10%  { @include option-bg($orange-5, $orange-5); }
+    20%  { @include option-bg($orange-5, $orange-100); }
+    30%  { @include option-bg($orange-5, $orange-5); }
+    40%  { @include option-bg($orange-5, $orange-100); }
+    50%  { @include option-bg($orange-5, $orange-5); }
+    60%  { @include option-bg($green-5, $green-100); }
+}
+
+@keyframes optionSuccessAfter {
+    0%   { background-color: $orange-100; }
+    10%  { background-color: $orange-5; }
+    20%  { background-color: $orange-100; }
+    30%  { background-color: $orange-5; }
+    40%  { background-color: $orange-100; }
+    50%  { background-color: $orange-5; }
+    60%  { background-color: $green-100; }
+}
+
+@mixin wrongAnswer {
+    animation-name: optionWrong;
+    animation-duration: 3s;
+    pointer-events: none;
+    @include option-bg($red-5, $red-100);
+    &::after {
+        animation-name: optionWrongAfter;
+        animation-duration: 3s;
+        background-color: $red-100;
+    }
+}
+
+@mixin successAnswer { 
+    animation-name: optionSuccess;
+    animation-duration: 3s;
+    pointer-events: none;
+    @include option-bg($green-5, $green-100);
+    &::after {
+        animation-name: optionSuccessAfter;
+        animation-duration: 3s;
+        background-color: $green-100;
+    }
+}
+
+.option { 
+    width: 288px;
+    height: 56px;
+    font-size: $font-size-regular;
+    font-weight: $font-weight-regular;
+    background-color: transparent;
+    @include option-bg($white-100, $black-40);
+    border: 0;
+    cursor: pointer;
+    text-align: left;
+    padding: 8px 24px;
+    position: relative;
+    &:after {
+        content: "";
+        display: block;
+        height: 1px;
+        width: calc(100% + 34px);
+        position: absolute;
+        left: -17px;
+        bottom: calc(50% - 0.5px);
+        z-index: -1;
+        background-color: $black-40;
+    }
+    &:hover {
+        @include option-bg($white-100, $orange-100);
+    }
+    &--wrong {
+        @include wrongAnswer;
+    }
+    &--success {
+        @include successAnswer;
+    }
+    @media(min-width: $laptop-width) {
+        width: 373px;
+        height: 72px;
+        font-size: $font-size-medium;
+        padding: 8px 36px;
+    }
+}
+
+.button {
+    width: 288px;
+    height: 48px;
+    font-size: $font-size-regular;
+    border-radius: 12px;
+    border: 0;
+    background-color: $orange-100;
+    font-weight: $font-weight-semi-bold;
+    color: $white-100;
+    &:active {
+        background-color: $orange-120;
+    }
+    @media(min-width: $laptop-width) {
+        width: 296px;
+        height: 64px;
+        font-size: $font-size-medium;
+        cursor: pointer;
+        &:hover {
+            background-color: $orange-80;
+        }
+    }
+}
